@@ -897,6 +897,14 @@ section {
     box-shadow var(--transition);
 }
 
+.featured-project--carousel {
+  grid-template-columns: minmax(0, 1.15fr) minmax(390px, 0.85fr);
+}
+
+.featured-project--media {
+  grid-template-columns: minmax(390px, 0.85fr) minmax(0, 1.15fr);
+}
+
 .featured-project:hover {
   border-color: var(--border-strong);
   box-shadow: 0 26px 70px rgb(0 0 0 / 18%);
@@ -919,6 +927,21 @@ section {
     linear-gradient(90deg, rgb(22 28 34 / 10%) 1px, transparent 1px),
     var(--bg-soft);
   background-size: 32px 32px;
+}
+
+.featured-project--carousel .project-preview {
+  min-height: 640px;
+  padding: clamp(14px, 1.7vw, 24px);
+}
+
+.featured-project--carousel .project-carousel {
+  width: 100%;
+  max-width: none;
+}
+
+.featured-project--media .project-preview {
+  min-height: 600px;
+  padding: clamp(14px, 1.7vw, 24px);
 }
 
 .project-content {
@@ -988,6 +1011,165 @@ section {
 
 .project-stack span {
   color: #aeb8c4;
+}
+
+/* Imagem única de um projeto */
+.project-media {
+  width: 100%;
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid var(--border-strong);
+  border-radius: 8px;
+  background: #080c11;
+  box-shadow: 0 25px 60px rgb(0 0 0 / 35%);
+}
+
+.project-media img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1423 / 1105;
+  object-fit: contain;
+  background: #080c11;
+}
+
+.project-media figcaption {
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  border-top: 1px solid var(--border);
+  background: #0b1015;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.06em;
+}
+
+/* Carrossel reutilizável dos projetos */
+.project-carousel {
+  position: relative;
+  width: min(100%, 560px);
+  overflow: hidden;
+  border: 1px solid var(--border-strong);
+  border-radius: 8px;
+  background: #080c11;
+  box-shadow: 0 25px 60px rgb(0 0 0 / 35%);
+  outline: none;
+}
+
+.project-carousel:focus-visible {
+  border-color: var(--accent);
+  box-shadow:
+    0 0 0 3px rgb(74 222 128 / 15%),
+    0 25px 60px rgb(0 0 0 / 35%);
+}
+
+.carousel-viewport {
+  overflow: hidden;
+}
+
+.carousel-track {
+  display: flex;
+  transition: transform 480ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+
+.carousel-slide {
+  min-width: 100%;
+  margin: 0;
+  aspect-ratio: 16 / 10;
+  background:
+    linear-gradient(rgb(22 28 34 / 16%) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(22 28 34 / 16%) 1px, transparent 1px),
+    #080c11;
+  background-size: 24px 24px;
+}
+
+.carousel-slide img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
+}
+
+.carousel-button {
+  position: absolute;
+  top: calc(50% - 21px);
+  z-index: 2;
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgb(255 255 255 / 18%);
+  border-radius: 50%;
+  background: rgb(8 12 17 / 80%);
+  color: var(--text);
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  transition:
+    color var(--transition),
+    border-color var(--transition),
+    background var(--transition),
+    transform var(--transition);
+}
+
+.carousel-button:hover,
+.carousel-button:focus-visible {
+  border-color: var(--accent);
+  background: rgb(8 12 17 / 94%);
+  color: var(--accent);
+  transform: scale(1.06);
+  outline: none;
+}
+
+.carousel-button--previous { left: 14px; }
+.carousel-button--next { right: 14px; }
+
+.carousel-footer {
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 0 16px;
+  border-top: 1px solid var(--border);
+  background: #0b1015;
+}
+
+.carousel-status {
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.08em;
+}
+
+.carousel-dots {
+  display: flex;
+  gap: 8px;
+}
+
+.carousel-dot {
+  width: 22px;
+  height: 3px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: var(--border-strong);
+  cursor: pointer;
+  transition:
+    width var(--transition),
+    background var(--transition);
+}
+
+.carousel-dot:hover,
+.carousel-dot:focus-visible {
+  background: var(--muted);
+  outline: none;
+}
+
+.carousel-dot.is-active {
+  width: 34px;
+  background: var(--accent);
 }
 
 /* Interfaces ilustrativas dos placeholders */
@@ -1757,13 +1939,13 @@ html.js [data-reveal].is-visible {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .project-card:last-child {
+  .project-card--wide {
     grid-column: 1 / -1;
     display: grid;
     grid-template-columns: 0.75fr 1.25fr;
   }
 
-  .project-card:last-child .card-placeholder {
+  .project-card--wide .card-placeholder {
     height: auto;
     min-height: 250px;
     border-right: 1px solid var(--border);
@@ -1893,6 +2075,16 @@ html.js [data-reveal].is-visible {
   .featured-project,
   .featured-project--reverse {
     grid-template-columns: 1fr;
+  }
+
+  .featured-project--carousel .project-preview {
+    min-height: 540px;
+    padding: 20px;
+  }
+
+  .featured-project--media .project-preview {
+    min-height: 540px;
+    padding: 20px;
   }
 
   .featured-project--reverse .project-preview {
@@ -2052,8 +2244,35 @@ html.js [data-reveal].is-visible {
     padding: 22px;
   }
 
+  .featured-project--carousel .project-preview {
+    min-height: 430px;
+    padding: 12px;
+  }
+
+  .featured-project--media .project-preview {
+    min-height: 430px;
+    padding: 12px;
+  }
+
+  .project-media figcaption {
+    min-height: 44px;
+  }
+
   .project-content {
     padding: 30px 24px 34px;
+  }
+
+  .carousel-button {
+    top: calc(50% - 20px);
+    width: 36px;
+    height: 36px;
+  }
+
+  .carousel-button--previous { left: 10px; }
+  .carousel-button--next { right: 10px; }
+
+  .carousel-footer {
+    min-height: 44px;
   }
 
   .case-details > div {
@@ -2070,12 +2289,12 @@ html.js [data-reveal].is-visible {
     grid-template-columns: 1fr;
   }
 
-  .project-card:last-child {
+  .project-card--wide {
     grid-column: auto;
     display: flex;
   }
 
-  .project-card:last-child .card-placeholder {
+  .project-card--wide .card-placeholder {
     height: 215px;
     min-height: 0;
     border-right: 0;
@@ -2184,5 +2403,227 @@ html.js [data-reveal].is-visible {
   html.js [data-reveal] {
     opacity: 1;
     transform: none;
+  }
+
+  .carousel-track {
+    transition: none;
+  }
+}
+
+.project-image-stack {
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory; 
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    scrollbar-width: none; 
+}
+
+.project-image-stack::-webkit-scrollbar {
+    display: none; 
+}
+
+.project-image-stack img {
+    width: 100%;
+    flex: 0 0 100%; 
+    height: 215px; 
+    object-fit: cover;
+    object-position: top;
+    scroll-snap-align: start; 
+    border-bottom: 1px solid var(--border);
+}
+
+/* ==========================================================================
+   Carrossel compacto dos cards de projetos
+   ========================================================================== */
+
+.card-project-carousel {
+  position: relative;
+  height: 240px;
+  overflow: hidden;
+  border-bottom: 1px solid var(--border);
+  background:
+    linear-gradient(
+      rgb(22 28 34 / 14%) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgb(22 28 34 / 14%) 1px,
+      transparent 1px
+    ),
+    var(--bg-soft);
+  background-size: 24px 24px;
+  outline: none;
+}
+
+.card-project-carousel:focus-visible {
+  box-shadow: inset 0 0 0 2px var(--accent);
+}
+
+.card-carousel-viewport {
+  width: 100%;
+  height: 195px;
+  overflow: hidden;
+}
+
+.card-carousel-track {
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+
+.card-carousel-slide {
+  min-width: 100%;
+  height: 100%;
+  flex: 0 0 100%;
+  display: grid;
+  place-items: center;
+  margin: 0;
+  padding: 14px;
+  background: #080c11;
+}
+
+.card-carousel-slide img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
+  object-position: center;
+  border-radius: 4px;
+  background: #080c11;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.card-carousel-button {
+  position: absolute;
+  top: 98px;
+  z-index: 3;
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 1px solid rgb(255 255 255 / 16%);
+  border-radius: 50%;
+  background: rgb(8 12 17 / 80%);
+  color: var(--text);
+  cursor: pointer;
+  transform: translateY(-50%);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition:
+    color var(--transition),
+    border-color var(--transition),
+    background var(--transition),
+    transform var(--transition);
+}
+
+.card-carousel-button--previous {
+  left: 12px;
+}
+
+.card-carousel-button--next {
+  right: 12px;
+}
+
+.card-carousel-button:hover,
+.card-carousel-button:focus-visible {
+  border-color: var(--accent);
+  background: rgb(8 12 17 / 94%);
+  color: var(--accent);
+  outline: none;
+}
+
+.card-carousel-button--previous:hover,
+.card-carousel-button--previous:focus-visible {
+  transform: translateY(-50%) translateX(-2px) scale(1.05);
+}
+
+.card-carousel-button--next:hover,
+.card-carousel-button--next:focus-visible {
+  transform: translateY(-50%) translateX(2px) scale(1.05);
+}
+
+.card-carousel-footer {
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-inline: 16px;
+  border-top: 1px solid var(--border);
+  background: #0b1015;
+}
+
+.card-carousel-status {
+  color: var(--muted-dark);
+  font-family: var(--font-mono);
+  font-size: 8px;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.08em;
+}
+
+.card-carousel-dots {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/*
+  Os indicadores são criados pelo JavaScript com a classe
+  carousel-dot. Este seletor reduz o tamanho apenas no card.
+*/
+.card-project-carousel .carousel-dot {
+  width: 16px;
+  height: 3px;
+}
+
+.card-project-carousel .carousel-dot.is-active {
+  width: 27px;
+}
+
+@media (max-width: 1080px) {
+  .project-card--wide .card-project-carousel {
+    height: auto;
+    min-height: 250px;
+    border-right: 1px solid var(--border);
+    border-bottom: 0;
+  }
+
+  .project-card--wide .card-carousel-viewport {
+    height: 205px;
+  }
+
+  .project-card--wide .card-carousel-button {
+    top: 103px;
+  }
+}
+
+@media (max-width: 680px) {
+  .card-project-carousel,
+  .project-card--wide .card-project-carousel {
+    height: 230px;
+    min-height: 0;
+    border-right: 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .card-carousel-viewport,
+  .project-card--wide .card-carousel-viewport {
+    height: 187px;
+  }
+
+  .card-carousel-button,
+  .project-card--wide .card-carousel-button {
+    top: 94px;
+    width: 32px;
+    height: 32px;
+  }
+
+  .card-carousel-footer {
+    height: 43px;
   }
 }

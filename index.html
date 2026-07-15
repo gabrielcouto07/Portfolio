@@ -334,63 +334,93 @@
             </div>
 
             <div class="featured-projects">
-              <article class="featured-project" data-reveal>
+              <article class="featured-project featured-project--carousel" data-reveal>
                 <div class="project-preview">
-                  <!-- SCREENSHOT: substitua este bloco por uma imagem do Commission Engine -->
-                  <div class="mock-window mock-window--finance" role="img" aria-label="Placeholder do Financial Intelligence e Commission Engine">
-                    <div class="window-bar">
-                      <span class="window-dot window-dot--red"></span>
-                      <span class="window-dot window-dot--yellow"></span>
-                      <span class="window-dot window-dot--green"></span>
-                      <span class="window-title">commission_engine.sql</span>
-                    </div>
-                    <div class="mock-content">
-                      <div class="mock-sidebar"><i></i><i></i><i></i><i></i></div>
-                      <div class="mock-dashboard">
-                        <div class="mock-kpis"><i></i><i></i><i></i></div>
-                        <div class="mock-chart"><span></span><span></span><span></span><span></span><span></span><span></span></div>
-                        <div class="mock-table"><i></i><i></i><i></i><i></i></div>
+                  <div
+                    class="project-carousel"
+                    data-carousel
+                    role="region"
+                    aria-roledescription="carrossel"
+                    aria-label="Imagens do projeto Financial Intelligence e Commission Engine"
+                    tabindex="0"
+                  >
+                    <div class="carousel-viewport">
+                      <div class="carousel-track" data-carousel-track>
+                        <figure class="carousel-slide" data-carousel-slide>
+                          <img
+                            src="assets/img/SQL_ComissionWork-01.png"
+                            alt="View SQL do motor de comissões aberta no SAP HANA"
+                            width="2624"
+                            height="1616"
+                            loading="lazy"
+                            decoding="async"
+                          >
+                        </figure>
+                        <figure class="carousel-slide" data-carousel-slide>
+                          <img
+                            src="assets/img/SQL_ComissionWork-02.png"
+                            alt="Visão geral do dashboard analítico com filtros, métricas e gráficos"
+                            width="2882"
+                            height="1440"
+                            loading="lazy"
+                            decoding="async"
+                          >
+                        </figure>
+                        <figure class="carousel-slide" data-carousel-slide>
+                          <img
+                            src="assets/img/SQL_ComissionWork-03.png"
+                            alt="Dashboard analítico do projeto com indicadores e gráficos de distribuição"
+                            width="2888"
+                            height="1440"
+                            loading="lazy"
+                            decoding="async"
+                          >
+                        </figure>
                       </div>
                     </div>
-                    <span class="replace-label">Screenshot · Commission Engine</span>
+
+                    <button class="carousel-button carousel-button--previous" type="button" data-carousel-previous aria-label="Imagem anterior">
+                      <span aria-hidden="true">←</span>
+                    </button>
+                    <button class="carousel-button carousel-button--next" type="button" data-carousel-next aria-label="Próxima imagem">
+                      <span aria-hidden="true">→</span>
+                    </button>
+
+                    <div class="carousel-footer">
+                      <span class="carousel-status" data-carousel-status aria-live="polite">01 / 03</span>
+                      <div class="carousel-dots" data-carousel-dots aria-label="Selecionar imagem"></div>
+                    </div>
                   </div>
                 </div>
 
                 <div class="project-content">
                   <div class="project-index"><span>Projeto 01</span><span>Sistema corporativo</span></div>
                   <h3>Financial Intelligence &amp; Commission Engine</h3>
-                  <p class="project-lead">Um motor de regras financeiras sobre SAP HANA que transformou cálculos dispersos de comissão em uma fonte única, auditável e confiável.</p>
+                  <p class="project-lead">Motor de regras financeiras no SAP HANA. As imagens ao lado demonstram os dados gerados por este motor (uma view SQL) após serem importados e renderizados de forma gráfica pelo AnalyticsApp (Projeto 03).</p>
 
                   <dl class="case-details">
                     <div><dt>Contexto</dt><dd>Regras multivariáveis, alto risco de divergência e cálculos manuais difíceis de auditar.</dd></div>
-                    <div><dt>Solução</dt><dd>Arquitetura de views SQL interdependentes, com responsabilidades separadas para consolidar dados, aplicar regras e expor os resultados.</dd></div>
-                    <div><dt>Impacto</dt><dd>Automação do cálculo para toda a força de vendas, eliminação de erros manuais e rastreabilidade exata para conferência.</dd></div>
+                    <div><dt>Solução</dt><dd>Arquitetura de views SQL interdependentes para aplicar as regras de negócio de comissão diretamente no banco de dados.</dd></div>
+                    <div><dt>Impacto</dt><dd>Cálculo auditável para toda a força de vendas. A precisão do motor pode ser visualizada nas análises, probabilidades e dashboards gerados no app de inteligência.</dd></div>
                   </dl>
 
                   <div class="project-stack"><span>SAP HANA SQL</span><span>SAP Business One</span><span>Modelagem de dados</span></div>
                 </div>
               </article>
 
-              <article class="featured-project featured-project--reverse" data-reveal>
+              <article class="featured-project featured-project--reverse featured-project--media" data-reveal>
                 <div class="project-preview">
-                  <!-- SCREENSHOT: substitua este bloco por uma imagem do Fiscal RPA Service -->
-                  <div class="mock-window mock-window--rpa" role="img" aria-label="Placeholder do Fiscal RPA Service">
-                    <div class="window-bar">
-                      <span class="window-dot window-dot--red"></span>
-                      <span class="window-dot window-dot--yellow"></span>
-                      <span class="window-dot window-dot--green"></span>
-                      <span class="window-title">nfse_worker.py</span>
-                    </div>
-                    <div class="terminal-lines">
-                      <p><span>→</span> iniciando lote: competência_06</p>
-                      <p><span>✓</span> portal municipal autenticado</p>
-                      <p><span>✓</span> 142 documentos processados</p>
-                      <p><span>✓</span> parsing e validação concluídos</p>
-                      <div class="terminal-progress"><i></i></div>
-                      <small>processo finalizado sem pendências_</small>
-                    </div>
-                    <span class="replace-label">Screenshot · Fiscal RPA Service</span>
-                  </div>
+                  <figure class="project-media">
+                    <img
+                      src="assets/img/NFEDownloader.png"
+                      alt="Interface do Fiscal Downloader para consulta e download de NFSe"
+                      width="1423"
+                      height="1105"
+                      loading="lazy"
+                      decoding="async"
+                    >
+                    <figcaption>Fiscal Downloader · Aplicação Windows</figcaption>
+                  </figure>
                 </div>
 
                 <div class="project-content">
@@ -408,42 +438,150 @@
                 </div>
               </article>
 
-              <article class="featured-project" data-reveal>
+              <article
+                class="featured-project featured-project--carousel"
+                data-reveal>
                 <div class="project-preview">
-                  <!-- SCREENSHOT: substitua este bloco por uma imagem do BI Pipeline -->
-                  <div class="mock-window mock-window--bi" role="img" aria-label="Placeholder do Automated Business Intelligence Pipeline">
-                    <div class="window-bar">
-                      <span class="window-dot window-dot--red"></span>
-                      <span class="window-dot window-dot--yellow"></span>
-                      <span class="window-dot window-dot--green"></span>
-                      <span class="window-title">bi_pipeline.streamlit</span>
+                  <div
+                    class="project-carousel"
+                    data-carousel
+                    role="region"
+                    aria-roledescription="carrossel"
+                    aria-label="Imagens do projeto AnalyticsApp"
+                    tabindex="0"
+                  >
+                    <div class="carousel-viewport">
+                      <div
+                        class="carousel-track"
+                        data-carousel-track
+                      >
+                        <figure
+                          class="carousel-slide"
+                          data-carousel-slide
+                          aria-hidden="false"
+                        >
+                          <img
+                            src="assets/img/AnalyticsApp1.png"
+                            alt="Fluxo estrutural e ciclo de processamento do AnalyticsApp"
+                            loading="lazy"
+                            decoding="async"
+                          >
+                        </figure>
+
+                        <figure
+                          class="carousel-slide"
+                          data-carousel-slide
+                          aria-hidden="true"
+                        >
+                          <img
+                            src="assets/img/AnalyticsApp2.png"
+                            alt="Dashboard analítico gerado pelo AnalyticsApp"
+                            loading="lazy"
+                            decoding="async"
+                          >
+                        </figure>
+
+                        <figure
+                          class="carousel-slide"
+                          data-carousel-slide
+                          aria-hidden="true"
+                        >
+                          <img
+                            src="assets/img/AnalyticsApp3.png"
+                            alt="Visualizações, tabelas e filtros do AnalyticsApp"
+                            loading="lazy"
+                            decoding="async"
+                          >
+                        </figure>
+                      </div>
                     </div>
-                    <div class="pipeline-flow">
-                      <div><strong>01</strong><span>SAP B1</span><small>origem</small></div>
-                      <i aria-hidden="true">→</i>
-                      <div><strong>02</strong><span>Python</span><small>transformação</small></div>
-                      <i aria-hidden="true">→</i>
-                      <div><strong>03</strong><span>Streamlit</span><small>visualização</small></div>
+
+                    <button
+                      class="carousel-button carousel-button--previous"
+                      type="button"
+                      data-carousel-previous
+                      aria-label="Exibir imagem anterior do AnalyticsApp"
+                    >
+                      <span aria-hidden="true">←</span>
+                    </button>
+
+                    <button
+                      class="carousel-button carousel-button--next"
+                      type="button"
+                      data-carousel-next
+                      aria-label="Exibir próxima imagem do AnalyticsApp"
+                    >
+                      <span aria-hidden="true">→</span>
+                    </button>
+
+                    <div class="carousel-footer">
+                      <span
+                        class="carousel-status"
+                        data-carousel-status
+                        aria-live="polite"
+                      >
+                        01 / 03
+                      </span>
+
+                      <div
+                        class="carousel-dots"
+                        data-carousel-dots
+                        aria-label="Selecionar imagem do AnalyticsApp"
+                      ></div>
                     </div>
-                    <div class="pipeline-chart"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
-                    <span class="replace-label">Screenshot · BI Pipeline</span>
                   </div>
                 </div>
 
                 <div class="project-content">
-                  <div class="project-index"><span>Projeto 03</span><span>Prova de conceito</span></div>
-                  <h3>Automated Business Intelligence Pipeline</h3>
-                  <p class="project-lead">Pipeline de BI de ponta a ponta para converter dados operacionais do SAP Business One em análises gerenciais atualizadas.</p>
+                  <div class="project-index">
+                    <span>Projeto 03</span>
+                    <span>Business Intelligence</span>
+                  </div>
+
+                  <h3>AnalyticsApp</h3>
+
+                  <p class="project-lead">
+                    Uma plataforma analítica desenvolvida para transformar qualquer base
+                    de dados bruta em telas de BI completas, com cálculos avançados e
+                    visualizações padronizadas.
+                  </p>
 
                   <dl class="case-details">
-                    <div><dt>Contexto</dt><dd>Dados corporativos volumosos e relatórios que dependiam de etapas recorrentes de preparação.</dd></div>
-                    <div><dt>Solução</dt><dd>Prova de conceito cobrindo consulta no HANA, transformação com Python e entrega de visualizações dinâmicas em Streamlit.</dd></div>
-                    <div><dt>Valor demonstrado</dt><dd>Arquitetura integrada de ingestão, tratamento e apresentação, pronta para orientar a evolução de relatórios automatizados.</dd></div>
+                    <div>
+                      <dt>Contexto</dt>
+                      <dd>
+                        A necessidade de realizar análises dinâmicas de alta complexidade
+                        sem depender de licenciamento e parametrizações demoradas em
+                        ferramentas como Power BI.
+                      </dd>
+                    </div>
+
+                    <div>
+                      <dt>Solução</dt>
+                      <dd>
+                        Aplicação interativa que recebe dados estruturados e gera
+                        instantaneamente diversos dashboards, tabelas filtráveis e
+                        cálculos de probabilidade on-the-fly.
+                      </dd>
+                    </div>
+
+                    <div>
+                      <dt>Impacto</dt>
+                      <dd>
+                        Democratiza a exploração de dados, permitindo que a operação
+                        cruze informações, detecte anomalias e extraia inteligência de
+                        negócios em segundos.
+                      </dd>
+                    </div>
                   </dl>
 
-                  <div class="project-stack"><span>Python</span><span>HANA SQL</span><span>Streamlit</span><span>ETL</span></div>
-                </div>
-              </article>
+                  <div class="project-stack">
+                    <span>Python</span>
+                    <span>Streamlit</span>
+                    <span>Pandas</span>
+                    <span>Data Analytics</span>
+                  </div>
+                </div></article>
             </div>
 
             <section class="more-projects" aria-labelledby="more-projects-title">
@@ -455,25 +593,165 @@
 
               <div class="project-card-grid">
                 <article class="project-card" data-reveal>
-                  <!-- SCREENSHOT: substitua .card-placeholder por uma imagem do App de Investimentos -->
-                  <div class="card-placeholder card-placeholder--investments" role="img" aria-label="Placeholder do Aplicativo de Investimentos">
-                    <div class="mini-chart"><i></i><i></i><i></i><i></i><i></i><i></i></div>
-                    <span>Screenshot · API de Investimentos</span>
+                  <div
+                    class="card-project-carousel"
+                    data-carousel
+                    role="region"
+                    aria-roledescription="carrossel"
+                    aria-label="Imagens do projeto Accounting Task Manager"
+                    tabindex="0"
+                  >
+                    <div class="card-carousel-viewport">
+                      <div
+                        class="card-carousel-track carousel-track"
+                        data-carousel-track
+                      >
+                        <figure
+                          class="card-carousel-slide"
+                          data-carousel-slide
+                          aria-hidden="false"
+                        >
+                          <img
+                            src="assets/img/TaskManager1.png"
+                            alt="Tela principal do Accounting Task Manager"
+                            loading="lazy"
+                            decoding="async"
+                          >
+                        </figure>
+
+                        <figure
+                          class="card-carousel-slide"
+                          data-carousel-slide
+                          aria-hidden="true"
+                        >
+                          <img
+                            src="assets/img/TaskManager2.png"
+                            alt="Visualização de tarefas do Accounting Task Manager"
+                            loading="lazy"
+                            decoding="async"
+                          >
+                        </figure>
+                      </div>
+                    </div>
+
+                    <button
+                      class="card-carousel-button card-carousel-button--previous"
+                      type="button"
+                      data-carousel-previous
+                      aria-label="Imagem anterior"
+                    >
+                      <span aria-hidden="true">←</span>
+                    </button>
+
+                    <button
+                      class="card-carousel-button card-carousel-button--next"
+                      type="button"
+                      data-carousel-next
+                      aria-label="Próxima imagem"
+                    >
+                      <span aria-hidden="true">→</span>
+                    </button>
+
+                    <div class="card-carousel-footer">
+                      <span
+                        class="card-carousel-status"
+                        data-carousel-status
+                        aria-live="polite"
+                      >
+                        01 / 02
+                      </span>
+
+                      <div
+                        class="card-carousel-dots"
+                        data-carousel-dots
+                      ></div>
+                    </div>
                   </div>
+
                   <div class="project-card-body">
-                    <div class="card-meta"><span>Backend</span><span class="status-badge">Em desenvolvimento</span></div>
-                    <h4>Aplicativo de Investimentos</h4>
-                    <p>Backend com análise de perfil, simulações financeiras e recomendações de portfólio. O projeto explora Clean Architecture, modelagem de domínio e APIs REST escaláveis.</p>
-                    <ul><li>Java</li><li>Spring Boot</li><li>SQL</li><li>Clean Architecture</li></ul>
+                    <div class="card-meta"><span>FullStack</span><span class="status-badge">Em evolução</span></div>
+                    <h4>Accounting Task Manager</h4>
+                    <p>Gerenciador de tarefas dedicado à equipe contábil. Assumi este projeto em andamento e venho aplicando melhorias de arquitetura, código e novas features para otimizar e controlar melhor as rotinas de um setor .</p>
+                    <ul><li>Python</li><li>React</li><li>Node.js</li><li>SQL</li><li>Evolução de Software</li><li>Gestão Contábil</li></ul>
                   </div>
                 </article>
 
                 <article class="project-card" data-reveal>
-                  <!-- SCREENSHOT: substitua .card-placeholder por uma imagem do Film Journal -->
-                  <div class="card-placeholder card-placeholder--film" role="img" aria-label="Placeholder do Film Journal">
-                    <div class="film-posters"><i></i><i></i><i></i></div>
-                    <span>Screenshot · Film Journal</span>
+                  <div
+                    class="card-project-carousel"
+                    data-carousel
+                    role="region"
+                    aria-roledescription="carrossel"
+                    aria-label="Imagens do projeto Film Journal"
+                    tabindex="0"
+                  >
+                    <div class="card-carousel-viewport">
+                      <div
+                        class="card-carousel-track carousel-track"
+                        data-carousel-track
+                      >
+                        <figure
+                          class="card-carousel-slide"
+                          data-carousel-slide
+                          aria-hidden="false"
+                        >
+                          <img
+                            src="./assets/img/FilmJournal1.png"
+                            alt="Tela principal do Film Journal"
+                            loading="lazy"
+                            decoding="async"
+                          >
+                        </figure>
+
+                        <figure
+                          class="card-carousel-slide"
+                          data-carousel-slide
+                          aria-hidden="true"
+                        >
+                          <img
+                            src="./assets/img/FilmJournal2.png"
+                            alt="Visualização de filmes registrados no Film Journal"
+                            loading="lazy"
+                            decoding="async"
+                          >
+                        </figure>
+                      </div>
+                    </div>
+
+                    <button
+                      class="card-carousel-button card-carousel-button--previous"
+                      type="button"
+                      data-carousel-previous
+                      aria-label="Imagem anterior"
+                    >
+                      <span aria-hidden="true">←</span>
+                    </button>
+
+                    <button
+                      class="card-carousel-button card-carousel-button--next"
+                      type="button"
+                      data-carousel-next
+                      aria-label="Próxima imagem"
+                    >
+                      <span aria-hidden="true">→</span>
+                    </button>
+
+                    <div class="card-carousel-footer">
+                      <span
+                        class="card-carousel-status"
+                        data-carousel-status
+                        aria-live="polite"
+                      >
+                        01 / 02
+                      </span>
+
+                      <div
+                        class="card-carousel-dots"
+                        data-carousel-dots
+                      ></div>
+                    </div>
                   </div>
+
                   <div class="project-card-body">
                     <div class="card-meta"><span>Produto pessoal</span><span class="status-badge">Em desenvolvimento</span></div>
                     <h4>Film Journal</h4>
@@ -482,7 +760,7 @@
                   </div>
                 </article>
 
-                <article class="project-card" data-reveal>
+                <article class="project-card project-card--wide" data-reveal>
                   <!-- SCREENSHOT: substitua .card-placeholder por uma imagem da extensão YouTube Reminder -->
                   <div class="card-placeholder card-placeholder--youtube" role="img" aria-label="Placeholder da extensão YouTube Reminder">
                     <div class="video-line"><i></i><span></span></div>
@@ -611,5 +889,6 @@
         </div>
       </footer>
     </div>
+
   </body>
 </html>

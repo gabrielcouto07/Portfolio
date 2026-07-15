@@ -21,32 +21,55 @@ function closeMenu() {
 function toggleMenu() {
   if (!navToggle || !navMenu) return;
 
-  const willOpen = navToggle.getAttribute("aria-expanded") !== "true";
-  navToggle.setAttribute("aria-expanded", String(willOpen));
-  navToggle.setAttribute("aria-label", willOpen ? "Fechar menu" : "Abrir menu");
+  const willOpen =
+    navToggle.getAttribute("aria-expanded") !== "true";
+
+  navToggle.setAttribute(
+    "aria-expanded",
+    String(willOpen),
+  );
+
+  navToggle.setAttribute(
+    "aria-label",
+    willOpen ? "Fechar menu" : "Abrir menu",
+  );
+
   navMenu.classList.toggle("is-open", willOpen);
   document.body.classList.toggle("nav-open", willOpen);
 }
 
 navToggle?.addEventListener("click", toggleMenu);
-navLinks.forEach((link) => link.addEventListener("click", closeMenu));
+
+navLinks.forEach((link) => {
+  link.addEventListener("click", closeMenu);
+});
 
 document.addEventListener("keydown", (event) => {
-  if (event.key === "Escape") closeMenu();
+  if (event.key === "Escape") {
+    closeMenu();
+  }
 });
 
 window.addEventListener(
   "resize",
   () => {
-    if (window.innerWidth > 860) closeMenu();
+    if (window.innerWidth > 860) {
+      closeMenu();
+    }
   },
   { passive: true },
 );
 
-window.addEventListener("scroll", updateHeader, { passive: true });
+window.addEventListener(
+  "scroll",
+  updateHeader,
+  { passive: true },
+);
+
 updateHeader();
 
-const revealElements = document.querySelectorAll("[data-reveal]");
+const revealElements =
+  document.querySelectorAll("[data-reveal]");
 
 if ("IntersectionObserver" in window) {
   const revealObserver = new IntersectionObserver(
@@ -64,30 +87,58 @@ if ("IntersectionObserver" in window) {
     },
   );
 
-  revealElements.forEach((element) => revealObserver.observe(element));
+  revealElements.forEach((element) => {
+    revealObserver.observe(element);
+  });
 } else {
-  revealElements.forEach((element) => element.classList.add("is-visible"));
+  revealElements.forEach((element) => {
+    element.classList.add("is-visible");
+  });
 }
 
 const observedSections = navLinks
-  .map((link) => document.querySelector(link.getAttribute("href")))
+  .map((link) => {
+    const href = link.getAttribute("href");
+
+    if (!href || !href.startsWith("#")) {
+      return null;
+    }
+
+    return document.querySelector(href);
+  })
   .filter(Boolean);
 
-if ("IntersectionObserver" in window && observedSections.length) {
+if (
+  "IntersectionObserver" in window &&
+  observedSections.length
+) {
   const sectionObserver = new IntersectionObserver(
     (entries) => {
       const visibleEntry = entries
         .filter((entry) => entry.isIntersecting)
-        .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        .sort(
+          (firstEntry, secondEntry) =>
+            secondEntry.intersectionRatio -
+            firstEntry.intersectionRatio,
+        )[0];
 
       if (!visibleEntry) return;
 
       navLinks.forEach((link) => {
-        const isCurrent = link.getAttribute("href") === `#${visibleEntry.target.id}`;
-        link.classList.toggle("is-active", isCurrent);
+        const isCurrent =
+          link.getAttribute("href") ===
+          `#${visibleEntry.target.id}`;
+
+        link.classList.toggle(
+          "is-active",
+          isCurrent,
+        );
 
         if (isCurrent) {
-          link.setAttribute("aria-current", "location");
+          link.setAttribute(
+            "aria-current",
+            "location",
+          );
         } else {
           link.removeAttribute("aria-current");
         }
@@ -99,8 +150,214 @@ if ("IntersectionObserver" in window && observedSections.length) {
     },
   );
 
-  observedSections.forEach((section) => sectionObserver.observe(section));
+  observedSections.forEach((section) => {
+    sectionObserver.observe(section);
+  });
 }
 
-const currentYear = document.querySelector("[data-current-year]");
-if (currentYear) currentYear.textContent = String(new Date().getFullYear());
+const currentYear =
+  document.querySelector("[data-current-year]");
+
+if (currentYear) {
+  currentYear.textContent =
+    String(new Date().getFullYear());
+}
+
+/*
+|--------------------------------------------------------------------------
+| Carrosséis dos projetos
+|--------------------------------------------------------------------------
+*/
+
+document
+  .querySelectorAll("[data-carousel]")
+  .forEach((carousel) => {
+    const track = carousel.querySelector(
+      "[data-carousel-track]",
+    );
+
+    const slides = [
+      ...carousel.querySelectorAll(
+        "[data-carousel-slide]",
+      ),
+    ];
+
+    const previousButton = carousel.querySelector(
+      "[data-carousel-previous]",
+    );
+
+    const nextButton = carousel.querySelector(
+      "[data-carousel-next]",
+    );
+
+    const dotsContainer = carousel.querySelector(
+      "[data-carousel-dots]",
+    );
+
+    const status = carousel.querySelector(
+      "[data-carousel-status]",
+    );
+
+    if (!track || slides.length === 0) {
+      return;
+    }
+
+    let currentIndex = 0;
+    let touchStartX = 0;
+
+    if (dotsContainer) {
+      dotsContainer.replaceChildren();
+    }
+
+    const dots = slides.map((_, index) => {
+      const dot = document.createElement("button");
+
+      dot.className = "carousel-dot";
+      dot.type = "button";
+
+      dot.setAttribute(
+        "aria-label",
+        `Mostrar imagem ${index + 1} de ${slides.length}`,
+      );
+
+      dot.addEventListener("click", () => {
+        showSlide(index);
+      });
+
+      dotsContainer?.append(dot);
+
+      return dot;
+    });
+
+    function showSlide(index) {
+      currentIndex =
+        (index + slides.length) % slides.length;
+
+      track.style.transform =
+        `translateX(-${currentIndex * 100}%)`;
+
+      slides.forEach((slide, slideIndex) => {
+        const isActive =
+          slideIndex === currentIndex;
+
+        slide.classList.toggle(
+          "is-active",
+          isActive,
+        );
+
+        slide.setAttribute(
+          "aria-hidden",
+          String(!isActive),
+        );
+      });
+
+      dots.forEach((dot, dotIndex) => {
+        const isActive =
+          dotIndex === currentIndex;
+
+        dot.classList.toggle(
+          "is-active",
+          isActive,
+        );
+
+        if (isActive) {
+          dot.setAttribute(
+            "aria-current",
+            "true",
+          );
+        } else {
+          dot.removeAttribute("aria-current");
+        }
+      });
+
+      if (status) {
+        const currentPosition =
+          String(currentIndex + 1).padStart(
+            2,
+            "0",
+          );
+
+        const totalSlides =
+          String(slides.length).padStart(
+            2,
+            "0",
+          );
+
+        status.textContent =
+          `${currentPosition} / ${totalSlides}`;
+      }
+    }
+
+    previousButton?.addEventListener(
+      "click",
+      () => {
+        showSlide(currentIndex - 1);
+      },
+    );
+
+    nextButton?.addEventListener(
+      "click",
+      () => {
+        showSlide(currentIndex + 1);
+      },
+    );
+
+    carousel.addEventListener(
+      "keydown",
+      (event) => {
+        const actions = {
+          ArrowLeft: () =>
+            showSlide(currentIndex - 1),
+
+          ArrowRight: () =>
+            showSlide(currentIndex + 1),
+
+          Home: () =>
+            showSlide(0),
+
+          End: () =>
+            showSlide(slides.length - 1),
+        };
+
+        const action = actions[event.key];
+
+        if (!action) return;
+
+        event.preventDefault();
+        action();
+      },
+    );
+
+    carousel.addEventListener(
+      "touchstart",
+      (event) => {
+        touchStartX =
+          event.changedTouches[0]?.clientX ?? 0;
+      },
+      { passive: true },
+    );
+
+    carousel.addEventListener(
+      "touchend",
+      (event) => {
+        const touchEndX =
+          event.changedTouches[0]?.clientX ??
+          touchStartX;
+
+        const distance =
+          touchEndX - touchStartX;
+
+        if (Math.abs(distance) < 45) {
+          return;
+        }
+
+        showSlide(
+          currentIndex +
+            (distance < 0 ? 1 : -1),
+        );
+      },
+      { passive: true },
+    );
+
+    showSlide(0);
+  });
