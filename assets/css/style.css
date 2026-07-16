@@ -191,6 +191,37 @@ section {
   animation: blink 1.1s steps(1) infinite;
 }
 
+.nav-social {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.nav-social-link {
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--border-strong);
+  border-radius: 50%;
+  color: var(--muted);
+  transition:
+    color var(--transition),
+    border-color var(--transition),
+    background var(--transition),
+    transform var(--transition);
+}
+
+.nav-social-link:hover,
+.nav-social-link:focus-visible {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  color: var(--accent);
+  transform: translateY(-2px);
+  outline: none;
+}
+
 .nav-menu {
   display: flex;
   align-items: center;
@@ -785,17 +816,74 @@ section {
   box-shadow: 0 20px 45px rgb(0 0 0 / 13%);
 }
 
-.experience-item--featured .experience-card {
+.timeline-current {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 28px;
+  margin-bottom: 52px;
+}
+
+.current-role {
+  display: flex;
+  flex-direction: column;
+}
+
+.current-role-period {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.current-role-tag {
+  padding: 4px 9px;
+  border: 1px solid rgb(74 222 128 / 24%);
+  border-radius: 4px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.current-role-tag--parallel {
+  border-style: dashed;
+  border-color: var(--border-strong);
+  background: transparent;
+  color: var(--muted);
+}
+
+.current-role-dates {
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.current-role .experience-card {
+  flex: 1;
+  margin-bottom: 0;
+}
+
+.current-role--primary .experience-card {
   border-color: rgb(74 222 128 / 24%);
   background:
     linear-gradient(145deg, rgb(74 222 128 / 3%), transparent 36%),
     var(--surface);
 }
 
-.experience-item--independent .experience-card {
+.current-role--parallel .experience-card {
+  border-style: dashed;
   background:
     linear-gradient(145deg, rgb(139 150 165 / 3%), transparent 38%),
     var(--surface);
+}
+
+.timeline-history {
+  position: relative;
 }
 
 .experience-card header {
@@ -873,6 +961,53 @@ section {
   flex-wrap: wrap;
   gap: 7px;
   margin-top: 24px;
+}
+
+.project-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.project-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 14px;
+  border: 1px solid var(--border-strong);
+  border-radius: 4px;
+  background: rgb(15 20 26 / 55%);
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  transition:
+    color var(--transition),
+    border-color var(--transition),
+    background var(--transition),
+    transform var(--transition);
+}
+
+.project-link:hover,
+.project-link:focus-visible {
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: translateY(-2px);
+  outline: none;
+}
+
+.project-link.is-pending {
+  border-style: dashed;
+  color: var(--muted-dark);
+  cursor: default;
+  pointer-events: none;
+}
+
+.project-link.is-pending:hover,
+.project-link.is-pending:focus-visible {
+  border-color: var(--border-strong);
+  color: var(--muted-dark);
+  transform: none;
 }
 
 /* Projetos em destaque */
@@ -1918,6 +2053,11 @@ html.js [data-reveal].is-visible {
 
 /* Responsividade */
 @media (max-width: 1080px) {
+  .timeline-current {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
   .hero-grid {
     grid-template-columns: minmax(0, 1.2fr) 300px;
     gap: 56px;
@@ -2205,6 +2345,7 @@ html.js [data-reveal].is-visible {
 
   .experience-period {
     grid-column: 2;
+    grid-row: 1;
     padding: 0 0 10px;
     text-align: left;
   }
@@ -2225,6 +2366,7 @@ html.js [data-reveal].is-visible {
 
   .experience-card {
     grid-column: 2;
+    grid-row: 2;
     margin-bottom: 24px;
     padding: 25px 22px;
   }
