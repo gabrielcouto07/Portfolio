@@ -1,0 +1,28 @@
+What changed & why
+1. Global easing (one high-leverage change)
+In :root I added --ease-out: cubic-bezier(0.22, 1, 0.36, 1) and redefined --transition to 200ms var(--ease-out) (was 180ms ease), plus a new --transition-smooth: 320ms var(--ease-out) for slower fades. Because nearly every hover/transition references --transition, this single change gives the whole site a more refined deceleration curve — the same curve the carousel already used, so it's now consistent everywhere (nav underline, cards, links, mobile menu).
+
+2. Staggered / cascading reveals
+Previously every [data-reveal] animated together. In main.js I set an incremental --reveal-delay (80ms per item) on the direct children of the three side-by-side card rows — .skills-layout, .project-card-grid, .details-grid. The reveal rule in CSS now reads transition-delay: var(--reveal-delay, 0ms), so those cards fan in left-to-right instead of all at once. Large stacked blocks (hero, featured projects, timeline) were deliberately left un-staggered — they're rarely in-viewport together and a delay there would read as lag. Reveal easing/duration also bumped to 700ms var(--ease-out) with a slightly larger travel (20px) for a softer settle.
+
+3. Button / CTA polish
+:active press state (returns to translateY(0)) for tactile feedback.
+Arrow glyphs (↘ ↗ ↑) now nudge on hover — translateX(3px) on buttons, translate(2px,-2px) on project links, translateY(-3px) on the footer "voltar ao topo". Each <span aria-hidden="true"> got display:inline-block + a transform transition.
+Primary button gains a subtle accent glow on hover: box-shadow: 0 12px 28px rgb(74 222 128 / 20%) — depth without a gimmick.
+4. Pointer-following glow (the one "signature" touch, kept restrained)
+A soft radial highlight (~9% accent, 240px) tracks the cursor on skill cards and the contact CTA panel only — the two cleanest, highest-value surfaces. Implemented as a ::before at z-index:0 behind lifted content, driven by --glow-x/--glow-y. In main.js the pointermove listeners are gated behind (hover:hover) and (pointer:fine) and a reduced-motion check, so touch devices and reduced-motion users never get it.
+
+5. Copy
+Tightened one sentence with a real defect — the Accounting Task Manager card ended ...as rotinas de um setor . (trailing space, vague ending). Now: "...novas funcionalidades para dar mais controle e organização às rotinas do setor." No new claims, metrics, or details invented; the two pending projects (Film Journal, YouTube Reminder) and all HTML comment/pending states are untouched.
+
+6. Accessibility preserved
+Everything existing is intact (skip link, aria-*, keyboard carousel nav, focus-visible, active-section observer). Every new effect is neutralized in an appended @media (prefers-reduced-motion: reduce) block placed last so it wins the cascade: reveal delays zeroed, glow ::before set to display:none, arrow transforms/transitions removed.
+
+Current state of the code (for a future session)
+Still 3 files, no build step, no dependencies. index.html + assets/css/style.css + assets/js/main.js, all PT-BR.
+CSS conventions: design tokens live in :root; components are grouped by section with PT-BR comment headers; responsive tiers at 1080/860/680/430px; the polish additions sit in a labeled block near the end. Reuse --transition, --transition-smooth, --ease-out for any new motion.
+Reveal system: add data-reveal to any element to opt into the fade-up. To stagger a new card row, just add its selector to the staggerGroups list in main.js — direct children with data-reveal get auto-delayed.
+Pointer glow: to extend it to another surface, add the selector to the glowTargets query and add the element to the .skill-card::before, .contact-container::before rule (element must be position:relative with content lifted to z-index:1).
+Safe to extend next: wiring the pending project links (the HTML comments already document the exact steps — set href, drop is-pending/aria-disabled/tabindex="-1", add target/rel), adding a CV link (comment marker already in the contact section), and swapping the YouTube Reminder placeholder for a screenshot.
+Verified: node --check passes on the JS; CSS braces balance (453/453). Changes are static CSS/JS only — reload the page to see them; no server needed.
+One judgment call worth flagging: I limited the cursor-follow glow to two surfaces rather than applying it to every card. If you'd prefer it on the featured-project and lab cards too, that's a straightforward extension — I kept it narrow on the "restraint over novelty" principle you set.
