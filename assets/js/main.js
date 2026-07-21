@@ -72,6 +72,7 @@ const translations = {
     "lab.film.badge": "Em desenvolvimento",
     "lab.film.text": "Produto web para registrar, organizar e revisitar filmes — exercício de produto, curadoria e qualidade de interface.",
     "lab.film.product": "Produto",
+    "lab.film.cta": "Acessar projeto",
     "lab.youtube.meta": "Extensão Chrome",
     "lab.youtube.badge": "Projeto pessoal",
     "lab.youtube.text": "Extensão para salvar vídeos com timestamps e recuperar referências no ponto certo, integrada à YouTube API.",
@@ -205,6 +206,7 @@ const translations = {
     "lab.film.badge": "In progress",
     "lab.film.text": "A web product to log, organize and revisit films — an exercise in product thinking, curation and interface quality.",
     "lab.film.product": "Product",
+    "lab.film.cta": "Visit project",
     "lab.youtube.meta": "Chrome extension",
     "lab.youtube.badge": "Personal project",
     "lab.youtube.text": "An extension to save videos with timestamps and jump back to the right moment, integrated with the YouTube API.",
@@ -269,12 +271,25 @@ const translations = {
 
 const languageButtons = document.querySelectorAll("[data-language]");
 
+const resumeFiles = {
+  pt: "Gabriel_Silva_SoftwareEngPT.pdf",
+  en: "Gabriel_Silva_SoftwareEngineer.pdf"
+};
+
 function setLanguage(language) {
   const dictionary = translations[language];
 
   if (!dictionary) return;
 
   document.documentElement.lang = language === "pt" ? "pt-BR" : "en";
+
+  const resumeFile = resumeFiles[language];
+  if (resumeFile) {
+    document.querySelectorAll("[data-resume]").forEach((link) => {
+      link.setAttribute("href", resumeFile);
+    });
+  }
+
   document.title = language === "pt"
     ? "Gabriel Cardoso | Engenharia de Software, Backend e Automação"
     : "Gabriel Cardoso | Software Engineering, Backend and Automation";

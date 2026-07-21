@@ -858,6 +858,24 @@ h2 {
   font-size: 11px;
 }
 
+.lab-link {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  gap: 6px;
+  margin-top: 4px;
+  color: var(--accent);
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  font-weight: 600;
+  transition: gap 160ms ease, color 160ms ease;
+}
+
+.lab-link:hover {
+  gap: 10px;
+  color: #4ccb5e;
+}
+
 /* Experience */
 #experiencia .section-heading,
 #competencias .section-heading {
