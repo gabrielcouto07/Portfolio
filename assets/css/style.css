@@ -595,6 +595,28 @@ h2 {
   object-fit: cover;
 }
 
+.portrait-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  background: var(--card-2);
+  color: var(--text-3);
+}
+
+.portrait-placeholder svg {
+  width: 92px;
+  height: 92px;
+}
+
+.portrait-placeholder-text {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--text-2);
+}
+
 .portrait-location {
   display: flex;
   align-items: center;
