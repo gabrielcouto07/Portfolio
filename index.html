@@ -8,7 +8,15 @@
     <meta name="description" content="Portfólio de Gabriel Cardoso, engenheiro de software especializado em backend, automação, SAP Business One, SQL/HANA e integração de sistemas.">
     <meta name="author" content="Gabriel Cardoso Silva Couto">
     <meta name="theme-color" content="#0a0e12">
-    <meta name="color-scheme" content="dark">
+    <meta name="color-scheme" content="dark light">
+    <script>
+      (function () {
+        try {
+          var theme = localStorage.getItem("theme");
+          if (theme === "light") document.documentElement.setAttribute("data-theme", "light");
+        } catch (error) { /* storage indisponível */ }
+      })();
+    </script>
 
     <meta property="og:type" content="website">
     <meta property="og:locale" content="pt_BR">
@@ -19,11 +27,13 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/style.css?v=20260720-1">
-    <script src="assets/js/main.js?v=20260720-1" defer></script>
+    <link rel="stylesheet" href="assets/css/style.css?v=20260728-2">
+    <script src="assets/js/main.js?v=20260728-2" defer></script>
   </head>
 
   <body>
+    <canvas class="code-rain" data-code-rain aria-hidden="true"></canvas>
+
     <a class="skip-link" href="#conteudo" data-i18n="access.skip">Ir para o conteúdo principal</a>
 
     <header class="site-header">
@@ -41,6 +51,15 @@
         </div>
 
         <div class="nav-actions">
+          <button class="theme-toggle" type="button" data-theme-toggle aria-label="Alternar entre tema claro e escuro" data-i18n-aria-label="access.theme">
+            <svg class="icon-moon" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false">
+              <path fill="currentColor" d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+            <svg class="icon-sun" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false">
+              <path fill="currentColor" d="M12 17a5 5 0 1 1 0-10 5 5 0 0 1 0 10zm0-13a1 1 0 0 1-1-1V2a1 1 0 1 1 2 0v1a1 1 0 0 1-1 1zm0 18a1 1 0 0 1-1-1v-1a1 1 0 1 1 2 0v1a1 1 0 0 1-1 1zM4 13H3a1 1 0 1 1 0-2h1a1 1 0 1 1 0 2zm17 0h-1a1 1 0 1 1 0-2h1a1 1 0 1 1 0 2zM5.64 6.64a1 1 0 0 1-.7-.29l-.71-.7a1 1 0 0 1 1.41-1.42l.71.71a1 1 0 0 1-.71 1.7zm13.43 13.43a1 1 0 0 1-.7-.29l-.71-.71a1 1 0 0 1 1.41-1.41l.71.7a1 1 0 0 1-.71 1.71zM4.93 20.07a1 1 0 0 1-.7-1.71l.7-.7a1 1 0 0 1 1.42 1.41l-.71.71a1 1 0 0 1-.71.29zM18.36 6.64a1 1 0 0 1-.7-1.7l.7-.71a1 1 0 1 1 1.42 1.41l-.71.71a1 1 0 0 1-.71.29z"></path>
+            </svg>
+          </button>
+
           <div class="language-switch" aria-label="Selecionar idioma" data-i18n-aria-label="access.language">
             <button class="language-button is-active" type="button" data-language="pt" aria-pressed="true">PT</button>
             <button class="language-button" type="button" data-language="en" aria-pressed="false">EN</button>
@@ -242,7 +261,7 @@
                   <span class="compact-status" data-carousel-status>01 / 03</span><div class="carousel-dots visually-hidden" data-carousel-dots></div>
                 </div>
                 <div class="lab-card-body">
-                  <div class="lab-meta"><span data-i18n="lab.film.meta">Produto pessoal</span><strong data-i18n="lab.film.badge">Em desenvolvimento</strong></div>
+                  <div class="lab-meta"><span data-i18n="lab.film.meta">Produto pessoal</span><strong data-i18n="lab.film.badge">Em produção</strong></div>
                   <h4>Film Journal</h4>
                   <p data-i18n="lab.film.text">Aplicação pessoal que transforma seu histórico e suas avaliações em um retrato do seu gosto por cinema — revela padrões e mudanças, aponta pontos cegos e ainda traz o jogo Cine-Detetive.</p>
                   <ul class="tag-list"><li data-i18n="lab.film.product">Produto</li><li>Frontend</li><li>UX</li><li>Web</li></ul>
@@ -334,20 +353,98 @@
             <article class="skill-card"><div><span>03</span><h3 data-i18n="skills.automation.title">Automação &amp; integração</h3></div><p data-i18n="skills.automation.text">Automação de processos, RPA e integração entre sistemas e o SAP Business One.</p><ul class="tag-list"><li>Python</li><li>RPA</li><li>Playwright</li><li>REST</li><li>SAP B1</li></ul></article>
             <article class="skill-card"><div><span>04</span><h3 data-i18n="skills.tools.title">Ferramentas &amp; práticas</h3></div><p data-i18n="skills.tools.text">Rotina de engenharia orientada a versionamento, colaboração e boas práticas.</p><ul class="tag-list"><li>Git</li><li>Linux</li><li>Docker</li><li data-i18n="skills.aws">AWS (estudo)</li><li>Agile</li></ul></article>
           </div>
+
+          <div class="stack-panel">
+            <p class="command" data-i18n="stack.kicker">$ cat stack.json --levels</p>
+            <div class="section-heading stack-heading">
+              <h3 data-i18n="stack.heading">Tecnologias &amp; nível de domínio</h3>
+              <p data-i18n="stack.intro">O que uso no dia a dia pra construir, testar e colocar no ar.</p>
+            </div>
+            <p class="stack-note" data-i18n="stack.note">// nível de domínio autoavaliado em cada tecnologia (não é cobertura de uso nem certificação)</p>
+
+            <div class="stack-list">
+              <div class="stack-item" data-level="90">
+                <div class="stack-item-top"><span class="stack-name">SQL · SAP HANA</span><span class="stack-value" data-stack-value>0%</span></div>
+                <div class="stack-bar"><span class="stack-bar-fill" data-stack-fill></span></div>
+              </div>
+              <div class="stack-item" data-level="85">
+                <div class="stack-item-top"><span class="stack-name">Python</span><span class="stack-value" data-stack-value>0%</span></div>
+                <div class="stack-bar"><span class="stack-bar-fill" data-stack-fill></span></div>
+              </div>
+              <div class="stack-item" data-level="85">
+                <div class="stack-item-top"><span class="stack-name">Automação · RPA</span><span class="stack-value" data-stack-value>0%</span></div>
+                <div class="stack-bar"><span class="stack-bar-fill" data-stack-fill></span></div>
+              </div>
+              <div class="stack-item" data-level="82">
+                <div class="stack-item-top"><span class="stack-name">SAP Business One</span><span class="stack-value" data-stack-value>0%</span></div>
+                <div class="stack-bar"><span class="stack-bar-fill" data-stack-fill></span></div>
+              </div>
+              <div class="stack-item" data-level="78">
+                <div class="stack-item-top"><span class="stack-name">REST APIs</span><span class="stack-value" data-stack-value>0%</span></div>
+                <div class="stack-bar"><span class="stack-bar-fill" data-stack-fill></span></div>
+              </div>
+              <div class="stack-item" data-level="72">
+                <div class="stack-item-top"><span class="stack-name">JavaScript</span><span class="stack-value" data-stack-value>0%</span></div>
+                <div class="stack-bar"><span class="stack-bar-fill" data-stack-fill></span></div>
+              </div>
+              <div class="stack-item" data-level="75">
+                <div class="stack-item-top"><span class="stack-name">Git · Linux</span><span class="stack-value" data-stack-value>0%</span></div>
+                <div class="stack-bar"><span class="stack-bar-fill" data-stack-fill></span></div>
+              </div>
+              <div class="stack-item" data-level="60">
+                <div class="stack-item-top"><span class="stack-name">Java · Spring Boot</span><span class="stack-value" data-stack-value>0%</span></div>
+                <div class="stack-bar"><span class="stack-bar-fill" data-stack-fill></span></div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
       <section class="contact-section" id="contato" aria-labelledby="contact-title">
         <div class="container">
           <p class="command" data-i18n="contact.kicker">$ ./contato</p>
-          <h2 id="contact-title" data-i18n="contact.heading">Vamos construir algo confiável.</h2>
-          <p class="contact-copy" data-i18n="contact.text">Aberto a oportunidades em backend, dados e automação. Melhor contato via LinkedIn.</p>
-          <div class="contact-actions">
-            <a class="button button--primary" href="https://linkedin.com/in/gabriel-cardoso-77ab222b9" target="_blank" rel="noopener noreferrer">LinkedIn <span aria-hidden="true">↗</span></a>
-            <a class="button button--secondary" href="https://github.com/gabrielcouto07" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a>
-            <a class="button button--secondary" href="Gabriel_Silva_SoftwareEngPT.pdf" download data-resume><span data-i18n="contact.resume">Baixar CV</span><span aria-hidden="true">↓</span></a>
+          <div class="contact-grid">
+            <div class="contact-info">
+              <h2 id="contact-title" data-i18n="contact.heading">Vamos construir algo confiável.</h2>
+              <p class="contact-copy" data-i18n="contact.text">Aberto a oportunidades em backend, dados e automação. Envie uma mensagem pelo formulário ou conecte-se via LinkedIn.</p>
+              <div class="contact-actions">
+                <a class="button button--primary" href="https://linkedin.com/in/gabriel-cardoso-77ab222b9" target="_blank" rel="noopener noreferrer">LinkedIn <span aria-hidden="true">↗</span></a>
+                <a class="button button--secondary" href="https://github.com/gabrielcouto07" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a>
+                <a class="button button--secondary" href="Gabriel_Silva_SoftwareEngPT.pdf" download data-resume><span data-i18n="contact.resume">Baixar CV</span><span aria-hidden="true">↓</span></a>
+              </div>
+              <p class="contact-email"><span data-i18n="contact.emailDirect">ou direto por e-mail:</span> <a href="mailto:gabrielsilva.couto@outlook.com">gabrielsilva.couto@outlook.com</a></p>
+              <p class="contact-location"><span>$</span> <span data-i18n="contact.location">Belo Horizonte, MG · Brasil</span></p>
+            </div>
+
+            <div class="contact-form-card">
+              <div class="window-bar">
+                <span class="window-dot window-dot--red"></span>
+                <span class="window-dot window-dot--yellow"></span>
+                <span class="window-dot window-dot--green"></span>
+                <span class="window-title" data-i18n="contact.form.windowTitle">enviar-mensagem.sh</span>
+              </div>
+              <form class="contact-form" data-contact-form action="https://formsubmit.co/ajax/gabrielsilva.couto@outlook.com" method="POST" novalidate>
+                <div class="form-field">
+                  <label for="contact-name" data-i18n="contact.form.name">nome</label>
+                  <input id="contact-name" name="name" type="text" autocomplete="name" required maxlength="120" placeholder="Seu nome" data-i18n-placeholder="contact.form.namePlaceholder">
+                </div>
+                <div class="form-field">
+                  <label for="contact-email-input" data-i18n="contact.form.email">email</label>
+                  <input id="contact-email-input" name="email" type="email" autocomplete="email" required maxlength="160" placeholder="voce@exemplo.com" data-i18n-placeholder="contact.form.emailPlaceholder">
+                </div>
+                <div class="form-field">
+                  <label for="contact-message" data-i18n="contact.form.message">mensagem</label>
+                  <textarea id="contact-message" name="message" required maxlength="3000" placeholder="Como posso ajudar?" data-i18n-placeholder="contact.form.messagePlaceholder"></textarea>
+                </div>
+                <input type="hidden" name="_subject" value="Novo contato via portfólio">
+                <input type="hidden" name="_template" value="table">
+                <input type="hidden" name="_captcha" value="false">
+                <input class="form-honey" type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true">
+                <button class="button button--primary" type="submit" data-form-submit><span data-i18n="contact.form.send">Enviar mensagem</span><span aria-hidden="true">→</span></button>
+                <p class="form-status" data-form-status role="status" aria-live="polite"></p>
+              </form>
+            </div>
           </div>
-          <p class="contact-location"><span>$</span> <span data-i18n="contact.location">Belo Horizonte, MG · Brasil</span></p>
         </div>
 
         <footer class="site-footer container">

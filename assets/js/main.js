@@ -69,7 +69,7 @@ const translations = {
     "lab.task.badge": "Em evolução",
     "lab.task.text": "Gerenciador de tarefas para a equipe contábil. Assumi o projeto em andamento e venho aplicando melhorias de arquitetura, código e novas features.",
     "lab.film.meta": "Produto pessoal",
-    "lab.film.badge": "Em desenvolvimento",
+    "lab.film.badge": "Em produção",
     "lab.film.text": "Aplicação pessoal que transforma seu histórico e suas avaliações em um retrato do seu gosto por cinema — revela padrões e mudanças, aponta pontos cegos e ainda traz o jogo Cine-Detetive.",
     "lab.film.product": "Produto",
     "lab.film.cta": "Acessar projeto",
@@ -126,11 +126,29 @@ const translations = {
     "skills.oop": "POO",
     "skills.dataModeling": "Modelagem",
     "skills.aws": "AWS (estudo)",
+    "stack.kicker": "$ cat stack.json --levels",
+    "stack.heading": "Tecnologias & nível de domínio",
+    "stack.intro": "O que uso no dia a dia pra construir, testar e colocar no ar.",
+    "stack.note": "// nível de domínio autoavaliado em cada tecnologia (não é cobertura de uso nem certificação)",
     "contact.kicker": "$ ./contato",
     "contact.heading": "Vamos construir algo confiável.",
-    "contact.text": "Aberto a oportunidades em backend, dados e automação. Melhor contato via LinkedIn.",
+    "contact.text": "Aberto a oportunidades em backend, dados e automação. Envie uma mensagem pelo formulário ou conecte-se via LinkedIn.",
     "contact.resume": "Baixar CV",
     "contact.location": "Belo Horizonte, MG · Brasil",
+    "contact.emailDirect": "ou direto por e-mail:",
+    "contact.form.name": "nome",
+    "contact.form.namePlaceholder": "Seu nome",
+    "contact.form.email": "email",
+    "contact.form.emailPlaceholder": "voce@exemplo.com",
+    "contact.form.windowTitle": "enviar-mensagem.sh",
+    "contact.form.message": "mensagem",
+    "contact.form.messagePlaceholder": "Como posso ajudar?",
+    "contact.form.send": "Enviar mensagem",
+    "contact.form.sending": "Enviando…",
+    "contact.form.success": "Mensagem enviada! Respondo em breve.",
+    "contact.form.error": "Não foi possível enviar. Tente novamente ou use o e-mail direto.",
+    "contact.form.invalid": "Preencha nome, e-mail válido e mensagem.",
+    "access.theme": "Alternar entre tema claro e escuro",
     "footer.tagline": "Feito com engenharia e atenção aos detalhes."
   },
   en: {
@@ -203,7 +221,7 @@ const translations = {
     "lab.task.badge": "Evolving",
     "lab.task.text": "A task manager for the accounting team. I took over the ongoing project and have been improving its architecture, code and features.",
     "lab.film.meta": "Personal product",
-    "lab.film.badge": "In progress",
+    "lab.film.badge": "In production",
     "lab.film.text": "A personal app that turns your watch history and ratings into a portrait of your taste in film — revealing patterns and changes, highlighting viewing blind spots and featuring the Cine-Detetive game.",
     "lab.film.product": "Product",
     "lab.film.cta": "Visit project",
@@ -260,11 +278,29 @@ const translations = {
     "skills.oop": "OOP",
     "skills.dataModeling": "Data modeling",
     "skills.aws": "AWS (learning)",
+    "stack.kicker": "$ cat stack.json --levels",
+    "stack.heading": "Technologies & proficiency",
+    "stack.intro": "What I use day to day to build, test and ship.",
+    "stack.note": "// self-assessed proficiency for each technology (not usage coverage nor certification)",
     "contact.kicker": "$ ./contact",
     "contact.heading": "Let's build something reliable.",
-    "contact.text": "Open to opportunities in backend, data and automation. Best reached via LinkedIn.",
+    "contact.text": "Open to opportunities in backend, data and automation. Send a message through the form or connect via LinkedIn.",
     "contact.resume": "Download CV",
     "contact.location": "Belo Horizonte, MG · Brazil",
+    "contact.emailDirect": "or directly by email:",
+    "contact.form.name": "name",
+    "contact.form.namePlaceholder": "Your name",
+    "contact.form.email": "email",
+    "contact.form.emailPlaceholder": "you@example.com",
+    "contact.form.windowTitle": "send-message.sh",
+    "contact.form.message": "message",
+    "contact.form.messagePlaceholder": "How can I help?",
+    "contact.form.send": "Send message",
+    "contact.form.sending": "Sending…",
+    "contact.form.success": "Message sent! I'll get back to you soon.",
+    "contact.form.error": "Could not send. Try again or use the direct email.",
+    "contact.form.invalid": "Fill in your name, a valid email and a message.",
+    "access.theme": "Toggle between light and dark theme",
     "footer.tagline": "Built with engineering and attention to detail."
   }
 };
@@ -276,11 +312,19 @@ const resumeFiles = {
   en: "Gabriel_Silva_SoftwareEngineer.pdf"
 };
 
+let currentLanguage = "pt";
+
+function translate(key) {
+  const dictionary = translations[currentLanguage] || translations.pt;
+  return dictionary[key] || translations.pt[key] || "";
+}
+
 function setLanguage(language) {
   const dictionary = translations[language];
 
   if (!dictionary) return;
 
+  currentLanguage = language;
   document.documentElement.lang = language === "pt" ? "pt-BR" : "en";
 
   const resumeFile = resumeFiles[language];
@@ -302,6 +346,11 @@ function setLanguage(language) {
   document.querySelectorAll("[data-i18n-aria-label]").forEach((element) => {
     const value = dictionary[element.dataset.i18nAriaLabel];
     if (typeof value === "string") element.setAttribute("aria-label", value);
+  });
+
+  document.querySelectorAll("[data-i18n-placeholder]").forEach((element) => {
+    const value = dictionary[element.dataset.i18nPlaceholder];
+    if (typeof value === "string") element.setAttribute("placeholder", value);
   });
 
   languageButtons.forEach((button) => {
@@ -385,3 +434,303 @@ const currentYear = document.querySelector("[data-current-year]");
 if (currentYear) currentYear.textContent = String(new Date().getFullYear());
 
 setLanguage("pt");
+
+/* Tema claro/escuro */
+const themeToggle = document.querySelector("[data-theme-toggle]");
+const themeColors = { dark: "#0a0e12", light: "#f5f7f8" };
+
+function applyTheme(theme, withTransition) {
+  const root = document.documentElement;
+
+  if (withTransition) {
+    root.classList.add("theme-transition");
+    window.setTimeout(() => root.classList.remove("theme-transition"), 400);
+  }
+
+  if (theme === "light") {
+    root.setAttribute("data-theme", "light");
+  } else {
+    root.removeAttribute("data-theme");
+  }
+
+  const metaTheme = document.querySelector('meta[name="theme-color"]');
+  if (metaTheme) metaTheme.setAttribute("content", themeColors[theme] || themeColors.dark);
+
+  try {
+    localStorage.setItem("theme", theme);
+  } catch (error) { /* storage indisponível */ }
+
+  document.dispatchEvent(new CustomEvent("themechange"));
+}
+
+applyTheme(document.documentElement.getAttribute("data-theme") === "light" ? "light" : "dark", false);
+
+if (themeToggle) {
+  themeToggle.addEventListener("click", () => {
+    const isLight = document.documentElement.getAttribute("data-theme") === "light";
+    applyTheme(isLight ? "dark" : "light", true);
+  });
+}
+
+/* Animações de entrada no scroll */
+const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+const revealGroups = [
+  ".hero-copy > *",
+  ".portrait-wrap",
+  ".about-grid > div:first-child",
+  ".metric-card",
+  ".principles-grid article",
+  ".section-heading",
+  ".section > .container > .command",
+  ".contact-section .command",
+  ".featured-project",
+  ".lab-card",
+  ".experience-card",
+  ".history-item",
+  ".skill-card",
+  ".stack-item",
+  ".contact-info",
+  ".contact-form-card"
+];
+
+if (!reducedMotion && "IntersectionObserver" in window) {
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add("is-revealed");
+      revealObserver.unobserve(entry.target);
+    });
+  }, { threshold: 0.12, rootMargin: "0px 0px -36px 0px" });
+
+  revealGroups.forEach((selector) => {
+    document.querySelectorAll(selector).forEach((element, index) => {
+      element.classList.add("reveal");
+      element.style.setProperty("--reveal-delay", `${Math.min(index, 5) * 70}ms`);
+      revealObserver.observe(element);
+    });
+  });
+}
+
+/* Barras de domínio da stack */
+const stackItems = document.querySelectorAll(".stack-item[data-level]");
+
+function animateStackItem(item) {
+  const level = Math.max(0, Math.min(100, Number(item.dataset.level) || 0));
+  const fill = item.querySelector("[data-stack-fill]");
+  const value = item.querySelector("[data-stack-value]");
+
+  if (fill) fill.style.width = `${level}%`;
+  if (!value) return;
+
+  if (reducedMotion) {
+    value.textContent = `${level}%`;
+    return;
+  }
+
+  const duration = 1100;
+  const start = performance.now();
+
+  function tick(now) {
+    const progress = Math.min((now - start) / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    value.textContent = `${Math.round(level * eased)}%`;
+    if (progress < 1) requestAnimationFrame(tick);
+  }
+
+  requestAnimationFrame(tick);
+}
+
+if (stackItems.length) {
+  if ("IntersectionObserver" in window && !reducedMotion) {
+    const stackObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        animateStackItem(entry.target);
+        stackObserver.unobserve(entry.target);
+      });
+    }, { threshold: 0.4 });
+
+    stackItems.forEach((item) => stackObserver.observe(item));
+  } else {
+    stackItems.forEach(animateStackItem);
+  }
+}
+
+/* Scrollspy da navegação */
+const navLinks = [...document.querySelectorAll(".nav-links a[href^='#']")];
+
+if (navLinks.length && "IntersectionObserver" in window) {
+  const sectionsById = new Map(
+    navLinks
+      .map((link) => document.querySelector(link.getAttribute("href")))
+      .filter(Boolean)
+      .map((section) => [section.id, section])
+  );
+
+  const spyObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      navLinks.forEach((link) => {
+        link.classList.toggle("is-active", link.getAttribute("href") === `#${entry.target.id}`);
+      });
+    });
+  }, { rootMargin: "-35% 0px -55% 0px" });
+
+  sectionsById.forEach((section) => spyObserver.observe(section));
+}
+
+/* Animação de fundo — caracteres subindo como em um terminal */
+const codeRainCanvas = document.querySelector("[data-code-rain]");
+
+if (codeRainCanvas && !reducedMotion) {
+  const context = codeRainCanvas.getContext("2d");
+  const glyphs = "01{}[]()<>/=+*;:$#&_|~%!?@^λ";
+  const deviceRatio = Math.min(window.devicePixelRatio || 1, 2);
+
+  let width = 0;
+  let height = 0;
+  let streams = [];
+  let accentColor = "#3fb950";
+  let trailColor = "#5c666e";
+
+  function refreshRainColors() {
+    const styles = getComputedStyle(document.documentElement);
+    accentColor = styles.getPropertyValue("--accent").trim() || accentColor;
+    trailColor = styles.getPropertyValue("--text-3").trim() || trailColor;
+  }
+
+  function randomGlyph() {
+    return glyphs[Math.floor(Math.random() * glyphs.length)];
+  }
+
+  function createStream(spawnAnywhere) {
+    const count = 6 + Math.floor(Math.random() * 10);
+    const fontSize = 12 + Math.random() * 6;
+    const spacing = fontSize * 1.35;
+
+    return {
+      x: Math.random() * width,
+      y: spawnAnywhere
+        ? Math.random() * (height + count * spacing)
+        : height + Math.random() * height * 0.5,
+      speed: 26 + Math.random() * 44,
+      fontSize,
+      spacing,
+      accent: Math.random() < 0.3,
+      chars: Array.from({ length: count }, randomGlyph)
+    };
+  }
+
+  function resizeRain() {
+    width = window.innerWidth;
+    height = window.innerHeight;
+    codeRainCanvas.width = Math.floor(width * deviceRatio);
+    codeRainCanvas.height = Math.floor(height * deviceRatio);
+    context.setTransform(deviceRatio, 0, 0, deviceRatio, 0, 0);
+
+    const target = Math.max(14, Math.min(48, Math.floor(width / 38)));
+    streams = Array.from({ length: target }, () => createStream(true));
+  }
+
+  let lastTime = performance.now();
+
+  function drawRain(now) {
+    const delta = Math.min((now - lastTime) / 1000, 0.1);
+    lastTime = now;
+
+    context.clearRect(0, 0, width, height);
+
+    streams.forEach((stream, streamIndex) => {
+      stream.y -= stream.speed * delta;
+
+      if (Math.random() < delta * 12) {
+        stream.chars[Math.floor(Math.random() * stream.chars.length)] = randomGlyph();
+      }
+
+      if (stream.y + stream.chars.length * stream.spacing < 0) {
+        streams[streamIndex] = createStream(false);
+        return;
+      }
+
+      context.font = `${stream.fontSize}px "JetBrains Mono", Consolas, monospace`;
+
+      stream.chars.forEach((char, charIndex) => {
+        const y = stream.y + charIndex * stream.spacing;
+        if (y < -stream.spacing || y > height + stream.spacing) return;
+
+        const trailFade = 1 - (charIndex / stream.chars.length) * 0.85;
+        const edgeFade = Math.max(0, Math.min(1, y / (height * 0.18)));
+        const alpha = (charIndex === 0 ? 0.85 : 0.5) * trailFade * edgeFade;
+        if (alpha <= 0.01) return;
+
+        context.globalAlpha = alpha;
+        context.fillStyle = charIndex === 0 || stream.accent ? accentColor : trailColor;
+        context.fillText(char, stream.x, y);
+      });
+    });
+
+    context.globalAlpha = 1;
+    requestAnimationFrame(drawRain);
+  }
+
+  refreshRainColors();
+  resizeRain();
+  requestAnimationFrame(drawRain);
+
+  document.addEventListener("themechange", refreshRainColors);
+
+  let resizeTimer;
+  window.addEventListener("resize", () => {
+    window.clearTimeout(resizeTimer);
+    resizeTimer = window.setTimeout(resizeRain, 200);
+  });
+}
+
+/* Formulário de contato (FormSubmit AJAX) */
+const contactForm = document.querySelector("[data-contact-form]");
+
+if (contactForm) {
+  const submitButton = contactForm.querySelector("[data-form-submit]");
+  const submitLabel = submitButton?.querySelector("[data-i18n]");
+  const formStatus = contactForm.querySelector("[data-form-status]");
+
+  function setFormStatus(key, type) {
+    if (!formStatus) return;
+    formStatus.textContent = key ? translate(key) : "";
+    formStatus.classList.toggle("is-success", type === "success");
+    formStatus.classList.toggle("is-error", type === "error");
+  }
+
+  contactForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    if (!contactForm.checkValidity()) {
+      setFormStatus("contact.form.invalid", "error");
+      contactForm.reportValidity();
+      return;
+    }
+
+    if (submitButton) submitButton.disabled = true;
+    if (submitLabel) submitLabel.textContent = translate("contact.form.sending");
+    setFormStatus("", null);
+
+    try {
+      const response = await fetch(contactForm.action, {
+        method: "POST",
+        headers: { Accept: "application/json" },
+        body: new FormData(contactForm)
+      });
+
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+      setFormStatus("contact.form.success", "success");
+      contactForm.reset();
+    } catch (error) {
+      setFormStatus("contact.form.error", "error");
+    } finally {
+      if (submitButton) submitButton.disabled = false;
+      if (submitLabel) submitLabel.textContent = translate("contact.form.send");
+    }
+  });
+}
