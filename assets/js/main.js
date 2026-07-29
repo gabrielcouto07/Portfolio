@@ -25,7 +25,6 @@ const translations = {
     "hero.workCta": "Ver projetos",
     "hero.resumeCta": "Baixar CV",
     "hero.location": "Belo Horizonte, MG · Brasil",
-    "hero.photoSoon": "$ foto em breve",
     "hero.photoAlt": "Foto em atualização",
     "about.kicker": "$ cat perfil.md",
     "about.heading": "Engenharia aplicada a operações reais.",
