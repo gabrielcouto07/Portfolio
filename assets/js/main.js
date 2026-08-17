@@ -25,6 +25,7 @@ const translations = {
     "hero.workCta": "Ver projetos",
     "hero.resumeCta": "Baixar CV",
     "hero.location": "Belo Horizonte, MG · Brasil",
+    "hero.photoSoon": "$ foto em breve",
     "hero.photoAlt": "Foto em atualização",
     "about.kicker": "$ cat perfil.md",
     "about.heading": "Engenharia aplicada a operações reais.",
@@ -311,8 +312,8 @@ const translations = {
 const languageButtons = document.querySelectorAll("[data-language]");
 
 const resumeFiles = {
-  pt: "Gabriel_Silva_SoftwareEngPT.pdf",
-  en: "Gabriel_Silva_SoftwareEngineer.pdf"
+  pt: "Gabriel_Software_Engineer_PT.pdf",
+  en: "Gabriel_Software_Engineer_EN.pdf"
 };
 
 let currentLanguage = "pt";

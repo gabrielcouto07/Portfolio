@@ -605,9 +605,118 @@ h2 {
   color: var(--text-3);
 }
 
-.portrait-placeholder svg {
-  width: 92px;
-  height: 92px;
+.portrait-placeholder .portrait-avatar {
+  width: 190px;
+  height: 190px;
+  overflow: visible;
+}
+
+.avatar-halo {
+  fill: var(--accent-dim);
+}
+
+.avatar-glyph {
+  fill: var(--text-3);
+  font-family: var(--font-mono);
+  font-size: 9px;
+}
+
+.avatar-head,
+.avatar-body {
+  fill: var(--card);
+  stroke: var(--accent);
+  stroke-width: 2;
+}
+
+.avatar-line {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.avatar-glasses rect,
+.avatar-glasses path {
+  stroke: var(--accent);
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.avatar-glasses rect {
+  fill: var(--accent-dim);
+}
+
+.avatar-prompt {
+  fill: var(--accent);
+  font-family: var(--font-mono);
+  font-size: 8px;
+  font-weight: 600;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .avatar-figure {
+    animation: avatar-float 6s var(--ease) infinite;
+  }
+
+  .avatar-eye {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: avatar-blink 5.5s ease-in-out infinite;
+  }
+
+  .avatar-glyph {
+    animation: avatar-drift 7s ease-in-out infinite alternate;
+  }
+
+  .avatar-glyph--2 {
+    animation-duration: 9s;
+    animation-delay: 0.8s;
+  }
+
+  .avatar-glyph--3 {
+    animation-duration: 8s;
+    animation-delay: 1.6s;
+  }
+
+  .avatar-glyph--4 {
+    animation-duration: 6.5s;
+    animation-delay: 0.4s;
+  }
+}
+
+@keyframes avatar-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+@keyframes avatar-blink {
+  0%,
+  90%,
+  96%,
+  100% {
+    transform: scaleY(1);
+  }
+
+  93% {
+    transform: scaleY(0.08);
+  }
+}
+
+@keyframes avatar-drift {
+  from {
+    transform: translateY(-3px);
+  }
+
+  to {
+    transform: translateY(3px);
+  }
 }
 
 .portrait-placeholder-text {
